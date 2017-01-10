@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDADescriptor>
+   <DataSources>
+      <Connection id="GeneroQuery" type="mondrian.jndi">
+         <Catalog>mondrian:/Personas</Catalog>
+         <Jndi>Hibernate</Jndi>
+      </Connection>
+      <Connection id="EdadQuery" type="mondrian.jndi">
+         <Catalog>mondrian:/Personas</Catalog>
+         <Jndi>Hibernate</Jndi>
+      </Connection>
+      <Connection id="ProfesiónQuery" type="mondrian.jndi">
+         <Catalog>mondrian:/Personas</Catalog>
+         <Jndi>Hibernate</Jndi>
+      </Connection>
+   </DataSources>
+   <DataAccess access="public" connection="GeneroQuery" id="GeneroQuery" type="mdx">
+      <Name>GeneroQuery</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters/>
+      <Query><![CDATA[select NON EMPTY({Descendants([Gender].[All Genders] ,[Gender].[Gender])}) on ROWS, 
+ NON EMPTY({[Measures].[User id]}) on Columns 
+ from [Personas]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="EdadQuery" id="EdadQuery" type="mdx">
+      <Name>EdadQuery</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters/>
+      <Query><![CDATA[select NON EMPTY({Descendants([Age].[All Ages] ,[Age].[Age])}) on ROWS, 
+ NON EMPTY({[Measures].[User id]}) on Columns 
+ from [Personas]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="ProfesiónQuery" id="ProfesiónQuery" type="mdx">
+      <Name>ProfesiónQuery</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters/>
+      <Query><![CDATA[select NON EMPTY(TopCount({Descendants([Occupation].[All Occupations] ,[Occupation].[Occupation])}, 10, [Measures].[User id])) on ROWS, 
+ NON EMPTY({[Measures].[User id]}) on Columns 
+ from [Personas]]]></Query>
+   </DataAccess>
+</CDADescriptor>
